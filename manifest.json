@@ -11,15 +11,15 @@
   "action": {
     "default_icon": "icon.png",
     "default_title": "TV Show Search",
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup.html"
   },
-  "permissions": ["contextMenus", "search", "tabs"],
+  "permissions": ["contextMenus", "search", "tabs", "storage"],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://www.google.com/*"],
       "exclude_matches": ["https://www.store.google.com/*"],
       "css": ["contentScript.css"],
       "js": ["contentScript.js"]
