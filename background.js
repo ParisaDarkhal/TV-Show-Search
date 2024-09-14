@@ -7,6 +7,14 @@ chrome.runtime.onInstalled.addListener((details) => {
     id: "contextMenu1",
     contexts: ["page", "selection"],
   });
+
+  //for text to speach functionality
+  chrome.contextMenus.create({
+    title: "Read This Text",
+    id: "contextMenu2",
+    contexts: ["page", "selection"],
+  });
+
   chrome.contextMenus.onClicked.addListener((event) => {
     console.log(event);
     // chrome.search.query({
@@ -48,12 +56,19 @@ chrome.runtime.onInstalled.addListener((details) => {
 // });
 
 chrome.contextMenus.onClicked.addListener((event) => {
-  fetch(`https://api.tvmaze.com/search/shows?q=${event.selectionText}`)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      chrome.storage.local.set({
-        shows: data,
+  if (event.menuItemId === "contextMenu1") {
+    fetch(`https://api.tvmaze.com/search/shows?q=${event.selectionText}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        chrome.storage.local.set({
+          shows: data,
+        });
       });
+  } else if (event.menuItemId === "contextMenu2") {
+    chrome.tts.speak(event.selectionText, {
+      lang: "es-ES",
+      rate: 0.5,
     });
+  }
 });

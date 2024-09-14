@@ -13,7 +13,7 @@
     "default_title": "TV Show Search",
     "default_popup": "popup.html"
   },
-  "permissions": ["contextMenus", "search", "tabs", "storage"],
+  "permissions": ["contextMenus", "search", "tabs", "storage", "tts"],
   "background": {
     "service_worker": "background.js"
   },
